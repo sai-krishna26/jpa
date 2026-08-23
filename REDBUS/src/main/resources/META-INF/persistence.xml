@@ -1,8 +1,14 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-    <persistence-unit name="x-workz">
+    <persistence-unit name="redbus">
+        <class>com.xworkz.redbus.entity.SignUpEntity</class>
+        <class>com.xworkz.redbus.entity.PaymentEntity</class>
+        <class>com.xworkz.redbus.entity.BookingEntity</class>
+        <class>com.xworkz.redbus.entity.InvoiceEntity</class>
+        <class>com.xworkz.redbus.entity.SignInEntity</class>
+
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/redbus_db"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="root"/>
         </properties>

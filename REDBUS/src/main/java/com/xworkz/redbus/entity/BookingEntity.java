@@ -2,6 +2,7 @@ package com.xworkz.redbus.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name="booking_info")
+@ToString
 public class BookingEntity
 {
     @Id
