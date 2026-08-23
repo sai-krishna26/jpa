@@ -1,5 +1,4 @@
-package com.xworkz.redbus.Entity;
-
+package com.xworkz.redbus.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,17 +8,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="signUp_info")
-
-public class SignUpEntity {
+@Table(name="signIn_info")
+public class SignInEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
-
-    @Column(name="name")
-    private String name;
 
     @Column(name="email")
     private String email;

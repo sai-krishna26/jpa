@@ -1,13 +1,15 @@
-package com.xworkz.redbus.Entity;
+package com.xworkz.redbus.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name="payment_info")
 public class PaymentEntity {
 

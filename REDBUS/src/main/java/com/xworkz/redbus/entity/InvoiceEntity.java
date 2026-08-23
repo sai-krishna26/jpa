@@ -1,4 +1,4 @@
-package com.xworkz.redbus.Entity;
+package com.xworkz.redbus.entity;
 
 import lombok.Getter;
 import lombok.Setter;
