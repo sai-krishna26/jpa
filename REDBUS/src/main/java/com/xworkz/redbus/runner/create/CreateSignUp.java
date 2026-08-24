@@ -1,31 +1,32 @@
-package com.xworkz.redbus.runner;
+package com.xworkz.redbus.runner.create;
 
-import com.xworkz.redbus.entity.SignInEntity;
+import com.xworkz.redbus.entity.SignUpEntity;
 
 import javax.persistence.*;
 
-public class CreateSignIn {
+public class CreateSignUp {
 
     public static void main(String[] args) {
+        SignUpEntity signUpEntity = new SignUpEntity();
 
-        SignInEntity signInEntity = new SignInEntity();
-
-        signInEntity.setEmail("Krishna@gmail.com");
-        signInEntity.setPassword("krishna");
+        signUpEntity.setEmail("krishna@gmail.com");
+        signUpEntity.setName("krishna");
+        signUpEntity.setPassword("krishna");
 
         EntityManagerFactory emf = null;
         EntityManager em = null;
         EntityTransaction et = null;
 
-        try {
+        try
+        {
             emf = Persistence.createEntityManagerFactory("redbus");//load, register, connection
-            em=emf.createEntityManager(); //DML, DQL
-            et=em.getTransaction();//TCL
-            et.begin();
-            em.persist(signInEntity);//Insert
+            em = emf.createEntityManager();//DML, DQL
+            et = em.getTransaction(); //TCL
+            et.begin(); //setautocommit=0
+            em.persist(signUpEntity);//DMl-Insert,Update,Delete
             et.commit();
 
-            System.out.println("Data saved successfully in table,"+signInEntity);
+            System.out.println("Data saved successfully in table,"+signUpEntity);
         }
         catch (PersistenceException e)
         {
@@ -33,9 +34,9 @@ public class CreateSignIn {
             {
                 et.rollback();
             }
+
             e.printStackTrace();
         }
-
         finally
         {
             if(emf!=null)

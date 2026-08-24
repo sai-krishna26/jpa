@@ -1,20 +1,19 @@
-package com.xworkz.redbus.runner;
+package com.xworkz.redbus.runner.create;
 
-import com.xworkz.redbus.entity.BookingEntity;
+import com.xworkz.redbus.entity.InvoiceEntity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-public class CreateBooking {
-
+public class CreateInvoice {
     public static void main(String[] args) {
 
-        BookingEntity bookingEntity = new BookingEntity();
-
-        bookingEntity.setFrom("Bengalore");
-        bookingEntity.setTo("Hyderabad");
-        bookingEntity.setDate(LocalDate.now());
-        bookingEntity.setIsForWomen(false);
+        InvoiceEntity invoiceEntity=new InvoiceEntity();
+        invoiceEntity.setBookingId(1001);
+        invoiceEntity.setInvoiceNumber("1234567890");
+        invoiceEntity.setTravelDate(LocalDate.now());
+        invoiceEntity.setAmount(100.0);
+        invoiceEntity.setPaymentStatus(true);
 
         EntityManagerFactory emf=null;
         EntityManager em=null;
@@ -22,14 +21,14 @@ public class CreateBooking {
 
         try
         {
-            emf=Persistence.createEntityManagerFactory("redbus");//load, register, connection
+            emf= Persistence.createEntityManagerFactory("redbus");//load, register, connection
             em=emf.createEntityManager();//DML,DQL
             et=em.getTransaction();//TCL
             et.begin();//setautocommit=0
-            em.persist(bookingEntity);//Insert
+            em.persist(invoiceEntity);//Insert
             et.commit();
 
-            System.out.println("Data saved successfully in table,"+bookingEntity);
+            System.out.println("Data saved successfully in table,"+invoiceEntity);
         }
         catch (PersistenceException e)
         {
@@ -39,8 +38,8 @@ public class CreateBooking {
             }
             e.printStackTrace();
         }
-
-        finally {
+        finally
+        {
             if(emf!=null)
             {
                 emf.close();

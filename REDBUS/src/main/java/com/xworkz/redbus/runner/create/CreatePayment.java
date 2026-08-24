@@ -1,19 +1,17 @@
-package com.xworkz.redbus.runner;
+package com.xworkz.redbus.runner.create;
 
-import com.xworkz.redbus.entity.InvoiceEntity;
+import com.xworkz.redbus.entity.PaymentEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
-public class CreateInvoice {
+
+public class CreatePayment {
     public static void main(String[] args) {
 
-        InvoiceEntity invoiceEntity=new InvoiceEntity();
-        invoiceEntity.setBookingId(1001);
-        invoiceEntity.setInvoiceNumber("1234567890");
-        invoiceEntity.setTravelDate(LocalDate.now());
-        invoiceEntity.setAmount(100.0);
-        invoiceEntity.setPaymentStatus(true);
+        PaymentEntity paymentEntity=new PaymentEntity();
+        paymentEntity.setPaymentMethod("upi");
+        paymentEntity.setAmount(100.0);
+        paymentEntity.setUpiId(12354326789L);
 
         EntityManagerFactory emf=null;
         EntityManager em=null;
@@ -21,14 +19,14 @@ public class CreateInvoice {
 
         try
         {
-            emf= Persistence.createEntityManagerFactory("redbus");//load, register, connection
-            em=emf.createEntityManager();//DML,DQL
+            emf=Persistence.createEntityManagerFactory("redbus");//load,register,connection
+            em=emf.createEntityManager();//DML-DQL
             et=em.getTransaction();//TCL
             et.begin();//setautocommit=0
-            em.persist(invoiceEntity);//Insert
+            em.persist(paymentEntity);//Insert
             et.commit();
 
-            System.out.println("Data saved successfully in table,"+invoiceEntity);
+            System.out.println("Data saved successfully in table,"+paymentEntity);
         }
         catch (PersistenceException e)
         {
