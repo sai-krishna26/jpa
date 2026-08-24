@@ -19,10 +19,10 @@ public class BookingEntity
     @Column(name="id")
     private Integer id;
 
-    @Column(name="from")
+    @Column(name="fromm")
     private String from;
 
-    @Column(name="to")
+    @Column(name="too")
     private String to;
 
     @Column(name="date")
