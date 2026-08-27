@@ -2,8 +2,9 @@ package com.xworkz.rapido;
 
 import com.xworkz.rapido.dto.RideInfoDto;
 import com.xworkz.rapido.entity.RideInfoEntity;
-import com.xworkz.rapido.server.RiderInfoService;
-import com.xworkz.rapido.server.impl.RiderInfoServiceImpl;
+import com.xworkz.rapido.server.RideInfoService;
+import com.xworkz.rapido.server.impl.RideInfoServiceImpl;
+
 
 public class runner {
     public static void main(String[] args)
@@ -18,7 +19,8 @@ public class runner {
         rideInfoDto.setCustomerName("Ravikumar");
         rideInfoDto.setCost(100.0);
 
-        RiderInfoService riderInfoService=new RiderInfoServiceImpl();
+        RideInfoService riderInfoService=new RideInfoServiceImpl();
+        riderInfoService.save(rideInfoDto);
 
     }
 }

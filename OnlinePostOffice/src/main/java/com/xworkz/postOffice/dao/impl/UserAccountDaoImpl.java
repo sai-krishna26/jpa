@@ -1,34 +1,32 @@
-package com.xworkz.rapido.dao.impl;
+package com.xworkz.postOffice.dao.impl;
 
-import com.xworkz.rapido.dao.RideInfoDao;
-import com.xworkz.rapido.entity.RideInfoEntity;
+import com.xworkz.postOffice.dao.UserAccountDao;
+import com.xworkz.postOffice.entity.UserAccountEntity;
 
 import javax.persistence.*;
 
-public class RideInfoDaoImpl implements RideInfoDao {
-
+public class UserAccountDaoImpl implements UserAccountDao {
     @Override
-    public boolean save(RideInfoEntity rideInfoEntity) {
-        System.out.println("Running save() in RideInfoDaoImpl");
+    public boolean save(UserAccountEntity userAccountEntity) {
+        System.out.println("Running save() in UserAccountDaoImpl");
         boolean isSaved=false;
 
-        if(rideInfoEntity!=null)
+        if(userAccountEntity!=null)
         {
             EntityManagerFactory emf=null;
             EntityManager em=null;
             EntityTransaction et=null;
 
             try{
-                emf=Persistence.createEntityManagerFactory("raapido");
+                emf= Persistence.createEntityManagerFactory("post_office");
                 em=emf.createEntityManager();
                 et=em.getTransaction();
                 et.begin();
-                em.persist(rideInfoEntity);
+                em.persist(userAccountEntity);
                 et.commit();
 
                 isSaved=true;
-                System.out.println(rideInfoEntity);
-                System.out.println("Data saved successfully in ride_info table");
+                System.out.println("Data saved successfully in userAccount table");
             }
             catch (PersistenceException e)
             {
@@ -36,28 +34,24 @@ public class RideInfoDaoImpl implements RideInfoDao {
                 {
                     et.rollback();
                 }
-                System.out.println("Failed to save data in ride_info table");
+                System.out.println("Data not saved");
                 e.printStackTrace();
             }
-            finally
-            {
+            finally {
                 if(emf!=null)
                 {
                     emf.close();
                 }
-                if(em!=null)
+                if(emf!=null)
                 {
                     em.close();
                 }
-
             }
-
         }
         else
         {
-            System.out.println("RideInfoEntity is null");
+            System.out.println("Data not saved,UserAccountEntity is null");
         }
-
         return isSaved;
     }
 }
