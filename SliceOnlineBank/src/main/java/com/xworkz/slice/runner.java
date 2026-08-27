@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class runner {
 
     public static void main(String[] args) {
-        System.out.println("main method started in runner");
+        System.out.println("Slice-Online Bank");
         AccountDetailsDto accountDetailsdto=new AccountDetailsDto();
 
         accountDetailsdto.setAccountNumber(234234);

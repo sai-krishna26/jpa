@@ -6,8 +6,6 @@ import com.xworkz.slice.dto.AccountDetailsDto;
 import com.xworkz.slice.entity.AccountDetailsEntity;
 import com.xworkz.slice.service.AccountDetailsService;
 
-import java.sql.SQLOutput;
-
 public class AccountDetailsServiceImpl implements AccountDetailsService
 {
     @Override
