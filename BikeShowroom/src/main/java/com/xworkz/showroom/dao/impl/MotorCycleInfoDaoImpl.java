@@ -98,7 +98,7 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
                 }
             }
         } else {
-            System.out.println("Data not saved, entities list is null or empty");
+            System.out.println("Data not saved, entities list is null");
         }
         return isSaved;
     }
