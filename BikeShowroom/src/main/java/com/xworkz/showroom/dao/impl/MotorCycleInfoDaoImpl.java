@@ -37,7 +37,7 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
                 {
                     et.rollback();
                 }
-                System.out.println("data not saved");
+                System.out.println("data not saved,exception occurred");
                 e.printStackTrace();
             }
             finally {
