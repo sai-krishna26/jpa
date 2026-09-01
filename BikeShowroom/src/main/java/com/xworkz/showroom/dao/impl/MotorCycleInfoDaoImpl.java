@@ -86,6 +86,7 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
             } catch (PersistenceException e) {
                 if (et != null) {
                     et.rollback();
+                    isSaved=false;
                 }
                 System.out.println("Data not saved");
                 e.printStackTrace();
@@ -103,4 +104,46 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
         return isSaved;
     }
 
+    @Override
+    public boolean getMotorCycleEntity(Integer id) {
+        System.out.println("Running getMotorCycleEntity method in MotorCycleInfoDaoImpl");
+
+        MotorCycleInfoEntity entity=null;
+        EntityManagerFactory emf=null;
+        EntityManager em=null;
+        boolean isFound=false;
+        try
+        {
+            emf=Persistence.createEntityManagerFactory("krishna");
+            em=emf.createEntityManager();
+            entity=em.find(MotorCycleInfoEntity.class, id);
+            if(entity!=null)
+            {
+                isFound=true;
+            }
+            else
+            {
+                isFound=false;
+            }
+        }
+        catch (PersistenceException e)
+        {
+            System.out.println("Data not found");
+            e.printStackTrace();
+            entity=null;
+            isFound=false;
+        }
+        finally
+        {
+            if(em != null)
+            {
+                em.close();
+            }
+            if(emf != null)
+            {
+                emf.close();
+            }
+        }
+        return isFound;
+    }
 }

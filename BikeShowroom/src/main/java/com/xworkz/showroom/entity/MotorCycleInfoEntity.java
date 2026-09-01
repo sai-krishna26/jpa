@@ -11,6 +11,10 @@ import javax.persistence.*;
 @Setter
 @Table(name="motorcycle_info")
 @ToString
+
+@NamedQuery(name="getAllMotorCycleInfo",query="select n from MotorCycleInfoEntity n")
+
+
 public class MotorCycleInfoEntity {
 
     @Id
