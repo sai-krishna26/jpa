@@ -105,33 +105,23 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
     }
 
     @Override
-    public boolean getMotorCycleEntity(Integer id) {
+    public MotorCycleInfoEntity getMotorCycleEntity(Integer id) {
         System.out.println("Running getMotorCycleEntity method in MotorCycleInfoDaoImpl");
 
         MotorCycleInfoEntity entity=null;
         EntityManagerFactory emf=null;
         EntityManager em=null;
-        boolean isFound=false;
         try
         {
-            emf=Persistence.createEntityManagerFactory("krishna");
+            emf=Persistence.createEntityManagerFactory("BikeShowroom");
             em=emf.createEntityManager();
             entity=em.find(MotorCycleInfoEntity.class, id);
-            if(entity!=null)
-            {
-                isFound=true;
-            }
-            else
-            {
-                isFound=false;
-            }
         }
         catch (PersistenceException e)
         {
             System.out.println("Data not found");
             e.printStackTrace();
             entity=null;
-            isFound=false;
         }
         finally
         {
@@ -144,6 +134,6 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
                 emf.close();
             }
         }
-        return isFound;
+        return entity;
     }
 }

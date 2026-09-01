@@ -6,5 +6,5 @@ import java.util.List;
 public interface MotorCycleInfoDao {
     public boolean save(MotorCycleInfoEntity motorCycleInfoEntity);
     public boolean saveAll(List<MotorCycleInfoEntity> entities);
-    public boolean getMotorCycleEntity(Integer id);
+    public MotorCycleInfoEntity getMotorCycleEntity(Integer id);
 }

@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
 
     @Override
-    public boolean save(MotorCycleInfoDto motorCycleInfoDto) {
-        System.out.println("Running save() method in MotorCycleInfoServiceImpl");
+    public boolean validateAndSave(MotorCycleInfoDto motorCycleInfoDto) {
+        System.out.println("Running ValidateAndSave() method in MotorCycleInfoServiceImpl");
         boolean isSaved=false;
 
         if(motorCycleInfoDto!=null)
@@ -21,7 +21,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
             MotorCycleInfoEntity motorCycleInfoEntity=new MotorCycleInfoEntity();
 
             motorCycleInfoEntity.setName(motorCycleInfoDto.getName());
-            motorCycleInfoEntity.setEngine_type(motorCycleInfoDto.getEngine_type());
+            motorCycleInfoEntity.setEngine_type(motorCycleInfoDto.getEngineType());
             motorCycleInfoEntity.setMileage(motorCycleInfoDto.getMileage());
             motorCycleInfoEntity.setPrice(motorCycleInfoDto.getPrice());
 
@@ -47,8 +47,8 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
     }
 
     @Override
-    public boolean saveAll(List<MotorCycleInfoDto> dtos) {
-        System.out.println("Running saveAll() method in MotorCycleInfoServiceImpl");
+    public boolean validateAndSaveAll(List<MotorCycleInfoDto> dtos) {
+        System.out.println("Running ValidateAndSaveAll() method in MotorCycleInfoServiceImpl");
         boolean isSaved = false;
 
         if (dtos != null && !dtos.isEmpty()) {
@@ -57,7 +57,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
                     .map(dto -> {
                         MotorCycleInfoEntity entity = new MotorCycleInfoEntity();
                         entity.setName(dto.getName());
-                        entity.setEngine_type(dto.getEngine_type());
+                        entity.setEngine_type(dto.getEngineType());
                         entity.setMileage(dto.getMileage());
                         entity.setPrice(dto.getPrice());
                         return entity;
@@ -66,9 +66,9 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
 
             MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
             boolean result = motorCycleInfoDao.saveAll(entities);
-            isSaved = true;
 
             if (result) {
+                isSaved = true;
                 System.out.println("All data saved successfully inside MotorCycleInfoDaoImpl");
             } else {
                 System.out.println("Data not saved inside MotorCycleInfoDaoImpl");
@@ -78,5 +78,26 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
         }
 
         return isSaved;
+    }
+
+    @Override
+    public MotorCycleInfoDto validateAndFindById(Integer id) {
+        System.out.println("Running ValidateAndFindById() method in MotorCycleInfoServiceImpl");
+
+        MotorCycleInfoDto dto=null;
+
+        MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
+        MotorCycleInfoEntity motorCycleInfoEntity=motorCycleInfoDao.getMotorCycleEntity(id);
+
+        if(motorCycleInfoEntity!=null)
+        {
+            dto=new MotorCycleInfoDto(motorCycleInfoEntity.getName(), motorCycleInfoEntity.getEngine_type(), motorCycleInfoEntity.getMileage(), motorCycleInfoEntity.getPrice());
+        }
+        else
+        {
+            System.out.println("Data not found inside MotorCycleInfoDaoImpl");
+        }
+        return dto;
+
     }
 }

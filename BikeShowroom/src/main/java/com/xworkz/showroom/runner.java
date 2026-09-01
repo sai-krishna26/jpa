@@ -15,12 +15,12 @@ public class runner {
         MotorCycleInfoDto motorCycleInfoDto = new MotorCycleInfoDto();
 
         motorCycleInfoDto.setName("Yamaha");
-        motorCycleInfoDto.setEngine_type("Petrol");
+        motorCycleInfoDto.setEngineType("Petrol");
         motorCycleInfoDto.setMileage("50");
         motorCycleInfoDto.setPrice(1000000);
 
         MotorCycleInfoService motorCycleInfoService = new MotorCycleInfoServiceImpl();
-        motorCycleInfoService.save(motorCycleInfoDto);
+        motorCycleInfoService.validateAndSave(motorCycleInfoDto);
 
         System.out.println("\n--- Batch Insert ---");
 
@@ -32,7 +32,12 @@ public class runner {
                 new MotorCycleInfoDto("Suzuki", "Petrol", "48", 950000)
         );
 
-        boolean result = motorCycleInfoService.saveAll(dtos);
+        boolean result = motorCycleInfoService.validateAndSaveAll(dtos);
         System.out.println("Batch insert result: " + result);
+
+        System.out.println("\n--- Find by ID ---");
+        MotorCycleInfoService motorCycleInfoService1=new MotorCycleInfoServiceImpl();
+        MotorCycleInfoDto motorCycleInfoDto1=motorCycleInfoService1.validateAndFindById(1);
+        System.out.println("result:"+motorCycleInfoDto1);
     }
 }

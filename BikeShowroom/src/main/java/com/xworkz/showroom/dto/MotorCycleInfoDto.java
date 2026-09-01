@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 public class MotorCycleInfoDto {
     private String name;
-    private String engine_type;
+    private String engineType;
     private String mileage;
     private double price;
 }
