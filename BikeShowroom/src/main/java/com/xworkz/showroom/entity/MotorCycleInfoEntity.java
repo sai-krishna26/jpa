@@ -20,9 +20,15 @@ import javax.persistence.*;
 @NamedQuery(name="updateNameById",query = "update MotorCycleInfoEntity n set n.name='pulsar' where n.id=1")
 @NamedQuery(name="updateEngineTypeByName",query = "update MotorCycleInfoEntity n set n.engine_type='hybrid' where n.name='pulsar'")
 @NamedQuery(name="updateMileageByEngineType",query = "update MotorCycleInfoEntity n set n.mileage='50' where n.engine_type='petrol'")
-@NamedQuery(name="updatePriceByName",query = "update MotorCycleInfoEntity n set n.price=1100000 where n.name='yamaha'")
 @NamedQuery(name="deleteByName",query = "delete from MotorCycleInfoEntity n where n.name='yamaha'")
 @NamedQuery(name="deleteByEngineType",query = "delete from MotorCycleInfoEntity n where n.engine_type='hybrid'")
+
+@NamedQuery(name="getAllMotorCycles", query = "select m from MotorCycleInfoEntity m")
+@NamedQuery(name="getMotorCyclesByNameAndEngineType", query = "SELECT m FROM MotorCycleInfoEntity m WHERE m.name = :name AND m.engine_type = :engineType")
+@NamedQuery(name="getMotorCyclesByEngineTypeAndPrice", query = "SELECT m FROM MotorCycleInfoEntity m WHERE m.engine_type = :engineType AND m.price <= :price")
+@NamedQuery(name="getMotorCycleByNameAndEngineType", query = "SELECT m FROM MotorCycleInfoEntity m WHERE m.name = :name AND m.engine_type = :engineType")
+@NamedQuery(name="updatePriceByName", query = "UPDATE MotorCycleInfoEntity m SET m.price = :price WHERE m.name = :name")
+@NamedQuery(name="updateQuantityByName", query = "UPDATE MotorCycleInfoEntity m SET m.quantity = :quantity WHERE m.name = :name")
 
 
 public class MotorCycleInfoEntity {
@@ -43,5 +49,8 @@ public class MotorCycleInfoEntity {
 
     @Column(name="price")
     private double price;
+
+    @Column(name="quantity")
+    private int quantity;
 
 }

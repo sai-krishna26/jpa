@@ -136,4 +136,185 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
         }
         return entity;
     }
+
+    @Override
+    public List<MotorCycleInfoEntity> readAllMotorCycleEntity() {
+        System.out.println("Running readAllMotorCycleEntity method in MotorCycleInfoDaoImpl");
+        List<MotorCycleInfoEntity> entities = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        try {
+            emf = Persistence.createEntityManagerFactory("BikeShowroom");
+            em = emf.createEntityManager();
+            entities = em.createNamedQuery("getAllMotorCycles", MotorCycleInfoEntity.class).getResultList();
+        } catch (PersistenceException e) {
+            System.out.println("Data not found");
+            e.printStackTrace();
+            entities = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+        return entities;
+    }
+
+    @Override
+    public List<MotorCycleInfoEntity> getMotorCyclesByNameAndEngineType(String name, String engineType) {
+        System.out.println("Running getMotorCyclesByNameAndEngineType method in MotorCycleInfoDaoImpl");
+        List<MotorCycleInfoEntity> entities = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        try {
+            emf = Persistence.createEntityManagerFactory("BikeShowroom");
+            em = emf.createEntityManager();
+            entities = em.createNamedQuery("getMotorCyclesByNameAndEngineType", MotorCycleInfoEntity.class)
+                    .setParameter("name", name)
+                    .setParameter("engineType", engineType)
+                    .getResultList();
+        } catch (PersistenceException e) {
+            System.out.println("Data not found");
+            e.printStackTrace();
+            entities = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+        return entities;
+    }
+
+    @Override
+    public List<MotorCycleInfoEntity> getMotorCyclesByEngineTypeAndPrice(String engineType, Double price) {
+        System.out.println("Running getMotorCyclesByEngineTypeAndPrice method in MotorCycleInfoDaoImpl");
+        List<MotorCycleInfoEntity> entities = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        try {
+            emf = Persistence.createEntityManagerFactory("BikeShowroom");
+            em = emf.createEntityManager();
+            entities = em.createNamedQuery("getMotorCyclesByEngineTypeAndPrice", MotorCycleInfoEntity.class)
+                    .setParameter("engineType", engineType)
+                    .setParameter("price", price)
+                    .getResultList();
+        } catch (PersistenceException e) {
+            System.out.println("Data not found");
+            e.printStackTrace();
+            entities = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+        return entities;
+    }
+
+    @Override
+    public MotorCycleInfoEntity getMotorCycleByNameAndEngineType(String name, String engineType) {
+        System.out.println("Running getMotorCycleByNameAndEngineType method in MotorCycleInfoDaoImpl");
+        MotorCycleInfoEntity entity = null;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        try {
+            emf = Persistence.createEntityManagerFactory("BikeShowroom");
+            em = emf.createEntityManager();
+            entity = em.createNamedQuery("getMotorCycleByNameAndEngineType", MotorCycleInfoEntity.class)
+                    .setParameter("name", name)
+                    .setParameter("engineType", engineType)
+                    .getSingleResult();
+        } catch (PersistenceException e) {
+            System.out.println("Data not found");
+            e.printStackTrace();
+            entity = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+        return entity;
+    }
+
+    @Override
+    public Boolean updatePriceByName(String name, Double price) {
+        System.out.println("Running updatePriceByName method in MotorCycleInfoDaoImpl");
+        Boolean isUpdated = false;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        EntityTransaction et = null;
+        try {
+            emf = Persistence.createEntityManagerFactory("BikeShowroom");
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+            int rowsAffected = em.createNamedQuery("updatePriceByName")
+                    .setParameter("price", price)
+                    .setParameter("name", name)
+                    .executeUpdate();
+            et.commit();
+            isUpdated = rowsAffected > 0;
+            System.out.println("Price updated successfully");
+        } catch (PersistenceException e) {
+            if (et != null) {
+                et.rollback();
+            }
+            System.out.println("Price not updated");
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public Boolean updateQuantityByName(String name, Integer quantity) {
+        System.out.println("Running updateQuantityByName method in MotorCycleInfoDaoImpl");
+        Boolean isUpdated = false;
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
+        EntityTransaction et = null;
+        try {
+            emf = Persistence.createEntityManagerFactory("BikeShowroom");
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
+            int rowsAffected = em.createNamedQuery("updateQuantityByName")
+                    .setParameter("quantity", quantity)
+                    .setParameter("name", name)
+                    .executeUpdate();
+            et.commit();
+            isUpdated = rowsAffected > 0;
+            System.out.println("Quantity updated successfully");
+        } catch (PersistenceException e) {
+            if (et != null) {
+                et.rollback();
+            }
+            System.out.println("Quantity not updated");
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
+        return isUpdated;
+    }
 }

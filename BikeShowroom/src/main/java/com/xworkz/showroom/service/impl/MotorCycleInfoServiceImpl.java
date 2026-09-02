@@ -24,6 +24,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
             motorCycleInfoEntity.setEngine_type(motorCycleInfoDto.getEngineType());
             motorCycleInfoEntity.setMileage(motorCycleInfoDto.getMileage());
             motorCycleInfoEntity.setPrice(motorCycleInfoDto.getPrice());
+            motorCycleInfoEntity.setQuantity(motorCycleInfoDto.getQuantity());
 
             MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
             boolean result= motorCycleInfoDao.save(motorCycleInfoEntity);
@@ -60,6 +61,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
                         entity.setEngine_type(dto.getEngineType());
                         entity.setMileage(dto.getMileage());
                         entity.setPrice(dto.getPrice());
+                        entity.setQuantity(dto.getQuantity());
                         return entity;
                     })
                     .collect(Collectors.toList());
@@ -91,13 +93,72 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
 
         if(motorCycleInfoEntity!=null)
         {
-            dto=new MotorCycleInfoDto(motorCycleInfoEntity.getName(), motorCycleInfoEntity.getEngine_type(), motorCycleInfoEntity.getMileage(), motorCycleInfoEntity.getPrice());
+            dto=new MotorCycleInfoDto(motorCycleInfoEntity.getName(), motorCycleInfoEntity.getEngine_type(), motorCycleInfoEntity.getMileage(), motorCycleInfoEntity.getPrice(), motorCycleInfoEntity.getQuantity());
         }
         else
         {
             System.out.println("Data not found inside MotorCycleInfoDaoImpl");
         }
         return dto;
+    }
 
+    @Override
+    public List<MotorCycleInfoDto> readAllMotorCycleDto() {
+        System.out.println("Running readAllMotorCycleDto() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
+        List<MotorCycleInfoEntity> entities = motorCycleInfoDao.readAllMotorCycleEntity();
+        return entities.stream()
+                .map(entity -> new MotorCycleInfoDto(entity.getName(), entity.getEngine_type(), entity.getMileage(), entity.getPrice(), entity.getQuantity()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MotorCycleInfoDto> getMotorCyclesByNameAndEngineType(String name, String engineType) {
+        System.out.println("Running getMotorCyclesByNameAndEngineType() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
+        List<MotorCycleInfoEntity> entities = motorCycleInfoDao.getMotorCyclesByNameAndEngineType(name, engineType);
+        return entities.stream()
+                .map(entity -> new MotorCycleInfoDto(entity.getName(), entity.getEngine_type(), entity.getMileage(), entity.getPrice(), entity.getQuantity()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MotorCycleInfoDto> getMotorCyclesByEngineTypeAndPrice(String engineType, Double price) {
+        System.out.println("Running getMotorCyclesByEngineTypeAndPrice() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
+        List<MotorCycleInfoEntity> entities = motorCycleInfoDao.getMotorCyclesByEngineTypeAndPrice(engineType, price);
+        return entities.stream()
+                .map(entity -> new MotorCycleInfoDto(entity.getName(), entity.getEngine_type(), entity.getMileage(), entity.getPrice(), entity.getQuantity()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public MotorCycleInfoDto getMotorCycleByNameAndEngineType(String name, String engineType) {
+        System.out.println("Running getMotorCycleByNameAndEngineType() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDto dto = null;
+        MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
+        MotorCycleInfoEntity entity = motorCycleInfoDao.getMotorCycleByNameAndEngineType(name, engineType);
+        if (entity != null) {
+            dto = new MotorCycleInfoDto(entity.getName(), entity.getEngine_type(), entity.getMileage(), entity.getPrice(), entity.getQuantity());
+        } else {
+            System.out.println("Data not found inside MotorCycleInfoDaoImpl");
+        }
+        return dto;
+    }
+
+    @Override
+    public String updatePriceByName(String name, Double price) {
+        System.out.println("Running updatePriceByName() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
+        Boolean isUpdated = motorCycleInfoDao.updatePriceByName(name, price);
+        return isUpdated ? "Price updated successfully" : "Price not updated";
+    }
+
+    @Override
+    public String updateQuantityByName(String name, Integer quantity) {
+        System.out.println("Running updateQuantityByName() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao = new MotorCycleInfoDaoImpl();
+        Boolean isUpdated = motorCycleInfoDao.updateQuantityByName(name, quantity);
+        return isUpdated ? "Quantity updated successfully" : "Quantity not updated";
     }
 }
