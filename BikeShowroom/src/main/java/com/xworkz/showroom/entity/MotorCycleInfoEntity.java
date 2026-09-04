@@ -23,13 +23,6 @@ import javax.persistence.*;
 @NamedQuery(name="deleteByName",query = "delete from MotorCycleInfoEntity n where n.name='yamaha'")
 @NamedQuery(name="deleteByEngineType",query = "delete from MotorCycleInfoEntity n where n.engine_type='hybrid'")
 
-//@NamedQuery(name="getAllMotorCycles", query = "select m from MotorCycleInfoEntity m")
-//@NamedQuery(name="getMotorCyclesByNameAndEngineType", query = "SELECT m FROM MotorCycleInfoEntity m WHERE m.name = :name AND m.engine_type = :engineType")
-//@NamedQuery(name="getMotorCyclesByEngineTypeAndPrice", query = "SELECT m FROM MotorCycleInfoEntity m WHERE m.engine_type = :engineType AND m.price <= :price")
-//@NamedQuery(name="getMotorCycleByNameAndEngineType", query = "SELECT m FROM MotorCycleInfoEntity m WHERE m.name = :name AND m.engine_type = :engineType")
-//@NamedQuery(name="updatePriceByName", query = "UPDATE MotorCycleInfoEntity m SET m.price = :price WHERE m.name = :name")
-//@NamedQuery(name="updateQuantityByName", query = "UPDATE MotorCycleInfoEntity m SET m.quantity = :quantity WHERE m.name = :name")
-
 
 public class MotorCycleInfoEntity {
 
