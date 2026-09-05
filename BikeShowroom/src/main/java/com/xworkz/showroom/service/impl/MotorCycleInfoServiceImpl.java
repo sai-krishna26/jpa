@@ -97,7 +97,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
         }
         else
         {
-            System.out.println("Data not found inside MotorCycleInfoDaoImpl");
+            System.out.println("Data is not found inside MotorCycleInfoDaoImpl");
         }
         return dto;
     }
