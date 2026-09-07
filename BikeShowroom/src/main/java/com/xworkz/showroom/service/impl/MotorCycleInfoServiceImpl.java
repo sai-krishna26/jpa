@@ -5,7 +5,10 @@ import com.xworkz.showroom.dao.impl.MotorCycleInfoDaoImpl;
 import com.xworkz.showroom.dto.MotorCycleInfoDto;
 import com.xworkz.showroom.entity.MotorCycleInfoEntity;
 import com.xworkz.showroom.service.MotorCycleInfoService;
+import org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +24,14 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
             MotorCycleInfoEntity motorCycleInfoEntity=new MotorCycleInfoEntity();
 
             motorCycleInfoEntity.setName(motorCycleInfoDto.getName());
-            motorCycleInfoEntity.setEngine_type(motorCycleInfoDto.getEngineType());
+            motorCycleInfoEntity.setEngineType(motorCycleInfoDto.getEngineType());
             motorCycleInfoEntity.setMileage(motorCycleInfoDto.getMileage());
             motorCycleInfoEntity.setPrice(motorCycleInfoDto.getPrice());
             motorCycleInfoEntity.setQuantity(motorCycleInfoDto.getQuantity());
 
             MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
             boolean result= motorCycleInfoDao.save(motorCycleInfoEntity);
-            isSaved=true;
+            isSaved=result;
 
             if(result)
             {
@@ -58,7 +61,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
                     .map(dto -> {
                         MotorCycleInfoEntity entity = new MotorCycleInfoEntity();
                         entity.setName(dto.getName());
-                        entity.setEngine_type(dto.getEngineType());
+                        entity.setEngineType(dto.getEngineType());
                         entity.setMileage(dto.getMileage());
                         entity.setPrice(dto.getPrice());
                         entity.setQuantity(dto.getQuantity());
@@ -93,7 +96,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
 
         if(motorCycleInfoEntity!=null)
         {
-            dto=new MotorCycleInfoDto(motorCycleInfoEntity.getName(), motorCycleInfoEntity.getEngine_type(), motorCycleInfoEntity.getMileage(), motorCycleInfoEntity.getPrice(), motorCycleInfoEntity.getQuantity());
+            dto=new MotorCycleInfoDto(motorCycleInfoEntity.getName(), motorCycleInfoEntity.getEngineType(), motorCycleInfoEntity.getMileage(), motorCycleInfoEntity.getPrice(),motorCycleInfoEntity.getQuantity());
         }
         else
         {
@@ -102,5 +105,48 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
         return dto;
     }
 
+    @Override
+    public List<MotorCycleInfoDto> validateAndReadAllMotorCycleInfo()
+    {
+        System.out.println("Running ValidateAndReadAllMotorCycleInfo() method in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
+        List<MotorCycleInfoEntity> motorCycleInfoEntityList=motorCycleInfoDao.readAllMotorCycleInfo();
 
+        List<MotorCycleInfoDto> motorCycleInfoDtoList=motorCycleInfoEntityList.stream()
+                .map(entity -> {
+                    MotorCycleInfoDto motorCycleInfoDto = new MotorCycleInfoDto();
+                    motorCycleInfoDto.setName(entity.getName());
+                    motorCycleInfoDto.setEngineType(entity.getEngineType());
+                    motorCycleInfoDto.setMileage(entity.getMileage());
+                    motorCycleInfoDto.setPrice(entity.getPrice());
+                    motorCycleInfoDto.setQuantity(entity.getQuantity());
+
+                    return motorCycleInfoDto;
+                }).collect(Collectors.toList());
+        return motorCycleInfoDtoList;
+    }
+
+    @Override
+    public List<MotorCycleInfoDto> validateAndGetMotorCycleByNameAndEngineType(String name, String engineType) {
+        System.out.println("Running validateAndGetMotorCycleByNameAndEngineType() in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
+        List<MotorCycleInfoDto> motorCycleInfoDtoList=new ArrayList<>();
+        List<MotorCycleInfoEntity> motorCycleInfoEntityList=motorCycleInfoDao.getMotorCycleByNameAndEngineType(name,engineType);
+
+        for(MotorCycleInfoEntity entity:motorCycleInfoEntityList)
+        {
+            MotorCycleInfoDto motorCycleInfoDto=new MotorCycleInfoDto();
+
+            motorCycleInfoDto.setName(entity.getName());
+            motorCycleInfoDto.setEngineType(entity.getEngineType());
+            motorCycleInfoDto.setMileage(entity.getMileage());
+            motorCycleInfoDto.setPrice(entity.getPrice());
+            motorCycleInfoDto.setQuantity(entity.getQuantity());
+
+            motorCycleInfoDtoList.add(motorCycleInfoDto);
+        }
+
+        return motorCycleInfoDtoList;
+    }
 }
+

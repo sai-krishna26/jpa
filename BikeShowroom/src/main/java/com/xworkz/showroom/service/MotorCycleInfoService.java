@@ -7,4 +7,8 @@ public interface MotorCycleInfoService {
     public boolean validateAndSave(MotorCycleInfoDto motorCycleInfoDto);
     public boolean validateAndSaveAll(List<MotorCycleInfoDto> dtos);
     public MotorCycleInfoDto validateAndFindById(Integer id);
+
+    public List<MotorCycleInfoDto> validateAndReadAllMotorCycleInfo();
+    public List<MotorCycleInfoDto> validateAndGetMotorCycleByNameAndEngineType(String name, String engineType);
+
 }
