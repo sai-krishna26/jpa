@@ -10,5 +10,6 @@ public interface MotorCycleInfoService {
 
     public List<MotorCycleInfoDto> validateAndReadAllMotorCycleInfo();
     public List<MotorCycleInfoDto> validateAndGetMotorCycleByNameAndEngineType(String name, String engineType);
+    public List<MotorCycleInfoDto> validateAndGetByMileage(String mileage);
 
 }

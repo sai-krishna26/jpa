@@ -10,4 +10,5 @@ public interface MotorCycleInfoDao {
 
     public List<MotorCycleInfoEntity> readAllMotorCycleInfo();
     public List<MotorCycleInfoEntity> getMotorCycleByNameAndEngineType(String name,String engineType);
+    public List<MotorCycleInfoEntity> getMotorCycleByMileage(String mileage);
 }

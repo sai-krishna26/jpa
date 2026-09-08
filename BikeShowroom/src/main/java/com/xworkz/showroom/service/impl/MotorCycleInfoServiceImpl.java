@@ -148,5 +148,28 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
 
         return motorCycleInfoDtoList;
     }
+
+    @Override
+    public List<MotorCycleInfoDto> validateAndGetByMileage(String mileage) {
+        System.out.println("Running validateAndGetByMileage() in MotorCycleInfoServiceImpl");
+        MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
+        List<MotorCycleInfoDto> dtoList=new ArrayList<>();
+        List<MotorCycleInfoEntity> entityList=motorCycleInfoDao.getMotorCycleByMileage(mileage);
+
+        for(MotorCycleInfoEntity entity:entityList)
+        {
+            MotorCycleInfoDto motorCycleInfoDto=new MotorCycleInfoDto();
+            motorCycleInfoDto.setName(entity.getName());
+            motorCycleInfoDto.setEngineType(entity.getEngineType());
+            motorCycleInfoDto.setMileage(entity.getMileage());
+            motorCycleInfoDto.setPrice(entity.getPrice());
+            motorCycleInfoDto.setQuantity(entity.getQuantity());
+
+            dtoList.add(motorCycleInfoDto);
+        }
+        return dtoList;
+    }
+
+    
 }
 

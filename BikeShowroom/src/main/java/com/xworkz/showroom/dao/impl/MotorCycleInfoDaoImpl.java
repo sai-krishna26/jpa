@@ -183,6 +183,7 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
 
         try
         {
+            System.out.println("Finding "+name+" Bike with "+engineType+" engine.....");
             emf=Persistence.createEntityManagerFactory("BikeShowroom");
             em=emf.createEntityManager();
             Query query=em.createNamedQuery("getMotorCycleByNameAndEngineType");
@@ -207,6 +208,41 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
                 em.close();
             }
         }
+        return entityList;
+    }
+
+    @Override
+    public List<MotorCycleInfoEntity> getMotorCycleByMileage(String mileage) {
+        System.out.println("Running getMotorCycleByMileage() in MotorCycleInfoDaoImpl");
+        EntityManagerFactory emf=null;
+        EntityManager em=null;
+
+        List<MotorCycleInfoEntity> entityList=null;
+
+        try{
+            emf=Persistence.createEntityManagerFactory("BikeShowroom");
+            em=emf.createEntityManager();
+            Query query=em.createNamedQuery("getByMileage");
+            query.setParameter("mileage",mileage);
+
+            entityList=query.getResultList();
+        }
+        catch (PersistenceException e )
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            if(em!=null)
+            {
+                em.close();
+            }
+            if(emf!=null)
+            {
+                emf.close();
+            }
+        }
+
         return entityList;
     }
 }
