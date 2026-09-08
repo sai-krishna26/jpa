@@ -9,11 +9,11 @@ import lombok.*;
 public class MotorCycleInfoDto {
     private String name;
     private String engineType;
-    private String mileage;
+    private Integer mileage;
     private Double price;
     private Integer quantity;
 
-    public MotorCycleInfoDto(String name, String engineType, String mileage, Double price, Integer quantity) {
+    public MotorCycleInfoDto(String name, String engineType, Integer mileage, Double price, Integer quantity) {
         this.name = name;
         this.engineType = engineType;
         this.mileage = mileage;

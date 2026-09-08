@@ -12,12 +12,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
+public class MotorCycleInfoServiceImpl implements MotorCycleInfoService
+{
+    MotorCycleInfoDao motorCycleInfoDao=new MotorCycleInfoDaoImpl();
 
     @Override
     public boolean validateAndSave(MotorCycleInfoDto motorCycleInfoDto) {
         System.out.println("Running ValidateAndSave() method in MotorCycleInfoServiceImpl");
         boolean isSaved=false;
+
 
         if(motorCycleInfoDto!=null)
         {
@@ -170,6 +173,44 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService {
         return dtoList;
     }
 
-    
+    @Override
+    public String validateAndUpdateNameById(String name, Integer id) {
+        System.out.println("Running validateAndUpdateNameById() in MotorCycleInfoServiceImpl");
+        String status="";
+        if(name!=null && id!=null)
+        {
+           Boolean isUpdated=motorCycleInfoDao.updateNameById(name,id);
+
+           if(isUpdated==true) {
+               status = "Data updated successfully";
+               System.out.println(name+" is updated at "+id);
+           }
+           else {
+               status = "Data not updated";
+           }
+        }
+        return status;
+    }
+
+    @Override
+    public String validateAndUpdateNameAndPriceByMileage(String name,Double price,Integer mileage) {
+        System.out.println("Running validateAndUpdateNameAndPriceByMileage() in MotorCycleInfoServiceImpl");
+        String status="";
+        if(name!=null && price!=null && mileage!=null)
+        {
+            Boolean isUpdated=motorCycleInfoDao.updateNameAndPriceByMileage(name,price,mileage);
+
+            if(isUpdated==true)
+            {
+                status="Data updated successfully";
+                System.out.println(name+" and "+price+" are updated where engineType= "+mileage);
+            }
+            else
+            {
+                status="Data is not Updated";
+            }
+        }
+        return status;
+    }
 }
 

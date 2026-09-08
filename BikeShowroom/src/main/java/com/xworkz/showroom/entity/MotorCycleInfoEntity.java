@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
 @Getter
@@ -21,9 +22,8 @@ import javax.persistence.*;
 @NamedQuery(name="getByEngineType",query="select n from MotorCycleInfoEntity n where n.engineType='petrol'")
 @NamedQuery(name="getByPrice",query="select n from MotorCycleInfoEntity n where n.price=1000000")
 
-@NamedQuery(name="updateNameById",query = "update MotorCycleInfoEntity n set n.name='pulsar' where n.id=1")
+@NamedQuery(name="updateNameById",query = "update MotorCycleInfoEntity n set n.name=:name where n.id=:id")
 @NamedQuery(name="updateEngineTypeByName",query = "update MotorCycleInfoEntity n set n.engineType='hybrid' where n.name='pulsar'")
-@NamedQuery(name="updateMileageByEngineType",query = "update MotorCycleInfoEntity n set n.mileage='50' where n.engineType='petrol'")
 
 @NamedQuery(name="deleteByName",query = "delete from MotorCycleInfoEntity n where n.name='yamaha'")
 @NamedQuery(name="deleteByEngineType",query = "delete from MotorCycleInfoEntity n where n.engineType='hybrid'")
@@ -43,7 +43,7 @@ public class MotorCycleInfoEntity {
     private String engineType;
 
     @Column(name="mileage")
-    private String mileage;
+    private Integer mileage;
 
     @Column(name="price")
     private Double price;

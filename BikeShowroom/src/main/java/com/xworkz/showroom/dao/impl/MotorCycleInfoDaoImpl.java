@@ -11,6 +11,8 @@ import java.util.List;
 
 public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
 
+    public static final EntityManagerFactory emf1=Persistence.createEntityManagerFactory("BikeShowroom");
+
     @Override
     public boolean save(MotorCycleInfoEntity motorCycleInfoEntity) {
         System.out.println("Running save() method in MotorCycleInfoDaoImpl");
@@ -244,5 +246,87 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
         }
 
         return entityList;
+    }
+
+    @Override
+    public Boolean updateNameById(String name, Integer id) {
+        System.out.println("Running updateNameById() in MotorCycleInfoDaoImpl");
+
+        Boolean isUpdated=false;
+        EntityManager em=null;
+        EntityTransaction et=null;
+        try
+        {
+            em=emf1.createEntityManager();
+            et=em.getTransaction();
+
+            et.begin();
+            Query query=em.createNamedQuery("updateNameById");
+            query.setParameter("id",id);
+            query.setParameter("name",name);
+            int count=query.executeUpdate();
+
+            if(count>0)
+            {
+                isUpdated=true;
+            }
+
+            et.commit();
+        }
+        catch (PersistenceException e)
+        {
+            if(et!=null)
+            {
+                et.rollback();
+            }
+            e.printStackTrace();
+        }
+
+        return isUpdated;
+    }
+
+    @Override
+    public Boolean updateNameAndPriceByMileage(String name,Double price,Integer mileage) {
+        System.out.println("Running updateNameAndPriceByMileage() in MotorCycleInfoDaoImpl");
+
+        Boolean isUpdated=false;
+        EntityManager em=null;
+        EntityTransaction et=null;
+        try
+        {
+            em= emf1.createEntityManager();
+            et=em.getTransaction();
+            et.begin();
+            Query query=em.createQuery("update MotorCycleInfoEntity n " + "set n.name=:name, " + "n.price=:price " + "where n.mileage=:mileage");
+            query.setParameter("name",name);
+            query.setParameter("price",price);
+            query.setParameter("mileage",mileage);
+
+            int count=query.executeUpdate();
+            if(count>0)
+            {
+                isUpdated=true;
+            }
+            et.commit();
+        }
+        catch (PersistenceException e)
+        {
+            if(et!=null)
+            {
+                et.rollback();
+            }
+            e.printStackTrace();
+        }
+        finally {
+            if(emf1!=null)
+            {
+                emf1.close();
+            }
+            if(em!=null)
+            {
+                em.close();
+            }
+        }
+        return isUpdated;
     }
 }
