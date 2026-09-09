@@ -12,7 +12,8 @@ public class runner {
     {
         System.out.println("Bike Showroom");
 
-        MotorCycleInfoDto motorCycleInfoDto = new MotorCycleInfoDto();
+//        System.out.println("\n--- Save ---");
+//        MotorCycleInfoDto motorCycleInfoDto = new MotorCycleInfoDto();
 
 //        motorCycleInfoDto.setName("Yamaha");
 //        motorCycleInfoDto.setEngineType("Petrol");
@@ -60,10 +61,21 @@ public class runner {
 //        String result=motorCycleInfoService5.validateAndUpdateNameById("Jawa",2);
 //        System.out.println("result of update: "+result);
 
-        System.out.println("----Update Name and Price By EngineType----");
-        MotorCycleInfoService motorCycleInfoService6=new MotorCycleInfoServiceImpl();
-        String res=motorCycleInfoService6.validateAndUpdateNameAndPriceByMileage("Harley Davidson",200000.08,55);
-        System.out.println("result of update: "+res);
+//        System.out.println("----Update Name and Price By EngineType----");
+//        MotorCycleInfoService motorCycleInfoService6=new MotorCycleInfoServiceImpl();
+//        String res=motorCycleInfoService6.validateAndUpdateNameAndPriceByMileage("Harley Davidson",200000.08,55);
+//        System.out.println("result of update: "+res);
 
+
+        System.out.println("----save dto through validation in service----");
+        MotorCycleInfoService motorCycleInfoService7=new MotorCycleInfoServiceImpl();
+        MotorCycleInfoDto motorCycleInfoDto=new MotorCycleInfoDto();
+        motorCycleInfoDto.setName("Apache");
+        motorCycleInfoDto.setEngineType("petrol");
+        motorCycleInfoDto.setMileage(45);
+        motorCycleInfoDto.setPrice(250000.00);
+        motorCycleInfoDto.setQuantity(3);
+        String res=motorCycleInfoService7.validateAndSaveMotorCycleInfo(motorCycleInfoDto);
+        System.out.println("result of validated save:"+res);
     }
 }

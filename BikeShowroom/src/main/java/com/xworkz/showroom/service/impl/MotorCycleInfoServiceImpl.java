@@ -5,11 +5,14 @@ import com.xworkz.showroom.dao.impl.MotorCycleInfoDaoImpl;
 import com.xworkz.showroom.dto.MotorCycleInfoDto;
 import com.xworkz.showroom.entity.MotorCycleInfoEntity;
 import com.xworkz.showroom.service.MotorCycleInfoService;
+import com.xworkz.showroom.util.ValidationUtil;
 import org.hibernate.hql.spi.id.local.LocalTemporaryTableBulkIdStrategy;
 
+import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MotorCycleInfoServiceImpl implements MotorCycleInfoService
@@ -85,6 +88,40 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService
             System.out.println("Data not saved, dtos list is null or empty");
         }
 
+        return isSaved;
+    }
+
+    @Override
+    public String validateAndSaveMotorCycleInfo(MotorCycleInfoDto dto) {
+        System.out.println("Running ValidateAndSaveMotorCycleInfo() method in MotorCycleInfoServiceImpl");
+        String isSaved=null;
+        if(dto!=null)
+        {
+            Set<ConstraintViolation<MotorCycleInfoDto>> validation = ValidationUtil.getValidator().validate(dto);
+            System.out.println("Ref of ConstriantVoilation: "+validation);
+
+            if(validation.isEmpty())
+            {
+                MotorCycleInfoEntity entity=new MotorCycleInfoEntity();
+                entity.setName(dto.getName());
+                entity.setEngineType(dto.getEngineType());
+                entity.setMileage(dto.getMileage());
+                entity.setPrice(dto.getPrice());
+                entity.setQuantity(dto.getQuantity());
+
+                Boolean result=motorCycleInfoDao.saveMotorCycleInfo(entity);
+
+                if(result==true)
+                {
+                    isSaved="Data saved successfully in Table";
+                }
+                else
+                {
+                    isSaved="Data is not saved";
+                }
+            }
+
+        }
         return isSaved;
     }
 
@@ -212,5 +249,7 @@ public class MotorCycleInfoServiceImpl implements MotorCycleInfoService
         }
         return status;
     }
+
+
 }
 

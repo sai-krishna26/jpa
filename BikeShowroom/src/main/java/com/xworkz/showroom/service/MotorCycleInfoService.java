@@ -8,8 +8,10 @@ import java.util.List;
 public interface MotorCycleInfoService {
     public boolean validateAndSave(MotorCycleInfoDto motorCycleInfoDto);
     public boolean validateAndSaveAll(List<MotorCycleInfoDto> dtos);
-    public MotorCycleInfoDto validateAndFindById(Integer id);
 
+    public String validateAndSaveMotorCycleInfo(MotorCycleInfoDto dto);
+
+    public MotorCycleInfoDto validateAndFindById(Integer id);
     public List<MotorCycleInfoDto> validateAndReadAllMotorCycleInfo();
 
     public List<MotorCycleInfoDto> validateAndGetMotorCycleByNameAndEngineType(String name, String engineType);
@@ -17,4 +19,5 @@ public interface MotorCycleInfoService {
 
     public String validateAndUpdateNameById(String name, Integer id);
     public String validateAndUpdateNameAndPriceByMileage(String name,Double price,Integer mileage);
+
 }

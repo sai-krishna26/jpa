@@ -110,6 +110,52 @@ public class MotorCycleInfoDaoImpl implements MotorCycleInfoDao {
     }
 
     @Override
+    public Boolean saveMotorCycleInfo(MotorCycleInfoEntity entity) {
+        System.out.println("Running saveMotorCycleInfo() method in MotorCycleInfoDaoImpl");
+        Boolean isSaved=false;
+
+        if(entity!=null)
+        {
+            EntityManager em=null;
+            EntityTransaction et=null;
+
+            try
+            {
+                em=emf1.createEntityManager();
+                et=em.getTransaction();
+                et.begin();
+
+                em.persist(entity);
+
+                et.commit();
+                isSaved=true;
+            }
+            catch (PersistenceException e)
+            {
+                if(et!=null)
+                {
+                    et.rollback();
+                }
+                e.printStackTrace();
+            }
+            finally
+            {
+                if(emf1!=null)
+                {
+                    emf1.close();
+                }
+                if(em!=null)
+                {
+                    em.close();
+                }
+            }
+        }
+
+
+        return isSaved;
+    }
+
+    @Override
     public MotorCycleInfoEntity getMotorCycleEntity(Integer id) {
         System.out.println("Running getMotorCycleEntity method in MotorCycleInfoDaoImpl");
 
