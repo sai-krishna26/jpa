@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Register</title>
 </head>
@@ -7,7 +7,20 @@
 <body>
 <h1>Welcome to Register</h1>
 
-<form action="relocateToRegister" method="post">
+<nav>
+    <a href="index.jsp">Home</a>
+    <br>
+    <br>
+    <a href="readAllRegister.jsp">Read All Registers</a>
+    <br>
+    <br>
+</nav>
+
+<form action="register" method="post">
+
+    <h1 style="color: green">${message}</h1>
+    <h1 style="color: red">${rmessage}</h1>
+
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br>
 
@@ -27,6 +40,7 @@
     <input type="text" id="institute" name="institute"><br>
 
     <input type="submit" value="Register">
+    
 </form>
 </body>
 </html>

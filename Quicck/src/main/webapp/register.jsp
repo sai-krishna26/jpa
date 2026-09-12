@@ -22,6 +22,7 @@
 
     <h1 style="color: green">${message}</h1>
     <h1 style="color: red">${rmessage}</h1>
+    <h1 style="color: blue">${pmessage}</h1>
 
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required><br>

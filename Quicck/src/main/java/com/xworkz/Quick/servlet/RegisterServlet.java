@@ -36,6 +36,14 @@ public class RegisterServlet extends HttpServlet {
 
         System.out.println(registerDto);
 
+        if(!registerDto.getPassword().equals(registerDto.getConfirmPassword()))
+        {
+            RequestDispatcher requestDispatcher=req.getRequestDispatcher("register.jsp");
+            req.setAttribute("pmessage","Password does not match");
+            requestDispatcher.forward(req,resp);
+            return;
+        }
+
         RegisterService registerService=new RegisterServiceImpl();
         Boolean result=registerService.validateAndSave(registerDto);
 
@@ -49,7 +57,7 @@ public class RegisterServlet extends HttpServlet {
         else
         {
             System.out.println("RegisterDto is not saved");
-            RequestDispatcher requestDispatcher=req.getRequestDispatcher("index.jsp");
+            RequestDispatcher requestDispatcher=req.getRequestDispatcher("register.jsp");
             req.setAttribute("rmessage","Registration failed");
             requestDispatcher.forward(req,resp);
         }
