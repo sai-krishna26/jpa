@@ -39,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
         if(!registerDto.getPassword().equals(registerDto.getConfirmPassword()))
         {
             RequestDispatcher requestDispatcher=req.getRequestDispatcher("register.jsp");
-            req.setAttribute("pmessage","Password does not match");
+            req.setAttribute("pmessage","Password does not match,please try again");
             requestDispatcher.forward(req,resp);
             return;
         }
