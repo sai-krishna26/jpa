@@ -58,7 +58,7 @@ public class RegisterServlet extends HttpServlet {
         {
             System.out.println("RegisterDto is not saved");
             RequestDispatcher requestDispatcher=req.getRequestDispatcher("register.jsp");
-            req.setAttribute("rmessage","Registration failed");
+            req.setAttribute("rmessage","Registration failed, try again");
             requestDispatcher.forward(req,resp);
         }
     }
